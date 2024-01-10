@@ -1,147 +1,108 @@
-// Function to insert images into chessboard boxes
+// Inserting the Images
 function insertImage() {
+
     document.querySelectorAll('.box').forEach(image => {
+
         if (image.innerText.length !== 0) {
-            // Check the piece type and set the appropriate image
             if (image.innerText == 'Wpawn' || image.innerText == 'Bpawn') {
-                image.innerHTML = `${image.innerText} <img class='allimg allpawn' src="${image.innerText}.png" alt="">`;
-                image.style.cursor = 'pointer';
-            } else {
-                image.innerHTML = `${image.innerText} <img class='allimg' src="${image.innerText}.png" alt="">`;
-                image.style.cursor = 'pointer';
+                image.innerHTML = `${image.innerText} <img class='allimg allpawn' src="${image.innerText}.png" alt="">`
+                image.style.cursor = 'pointer'
+
+            }
+
+            else {
+
+                image.innerHTML = `${image.innerText} <img class='allimg' src="${image.innerText}.png" alt="">`
+                image.style.cursor = 'pointer'
             }
         }
-    });
+    })
 }
+insertImage()
 
-// Initial image insertion
-insertImage();
 
-// Function to color the chessboard boxes
+//Coloring
+
 function coloring() {
-    const colorBoxes = document.querySelectorAll('.box');
+    const color = document.querySelectorAll('.box')
 
-    colorBoxes.forEach(box => {
-        const id = box.id;
-        const arr = Array.from(id);
-        arr.shift();
-        const aside = eval(arr.pop());
-        const aup = eval(arr.shift());
-        const a = aside + aup;
+    color.forEach(color => {
 
-        // Set background color based on the position
+        getId = color.id
+        arr = Array.from(getId)
+        arr.shift()
+        aside = eval(arr.pop())
+        aup = eval(arr.shift())
+        a = aside + aup
+
         if (a % 2 == 0) {
-            box.style.backgroundColor = 'rgb(23,32,42)';
+            color.style.backgroundColor = 'rgb(23,32,42)'
         }
         if (a % 2 !== 0) {
-            box.style.backgroundColor = 'rgb(100,75,43)';
+            color.style.backgroundColor = 'rgb(100,75,43)'
         }
-    });
+        // if (a % 2 == 0) {
+        //     color.style.backgroundColor = 'seagreen'
+        // }
+        // if (a % 2 !== 0) {
+        //     color.style.backgroundColor = 'lime'
+        // }
+
+    })
 }
+coloring()
 
-// Initial coloring
-coloring();
 
-// Function to handle interactions when removing the same team element
+
+
+//function to not remove the same team element
+
 function reddish() {
-    document.querySelectorAll('.box').forEach(pinkBox => {
-        if (pinkBox.style.backgroundColor == 'pink') {
-            document.querySelectorAll('.box').forEach(greenBox => {
-                if (greenBox.style.backgroundColor == 'green' && greenBox.innerText.length !== 0) {
-                    const greenText = greenBox.innerText;
-                    const pinkText = pinkBox.innerText;
-                    const pinkColor = Array.from(pinkText)[0].toString();
-                    const greenColor = Array.from(greenText)[0].toString();
+    document.querySelectorAll('.box').forEach(i1 => {
+        if (i1.style.backgroundColor == 'pink') {
 
-                    const greenBoxId = greenBox.id;
-                    const arr = Array.from(greenBoxId);
-                    arr.shift();
-                    const greenAside = eval(arr.pop());
-                    const greenAup = eval(arr.shift());
-                    const greenA = greenAside + greenAup;
+            document.querySelectorAll('.box').forEach(i2 => {
 
-                    // Set background color based on conditions
-                    if (greenA % 2 == 0 && pinkColor == greenColor) {
-                        greenBox.style.backgroundColor = 'rgb(240, 201, 150)';
+                if (i2.style.backgroundColor == 'green' && i2.innerText.length !== 0) {
+
+
+                    greenText = i2.innerText
+
+                    pinkText = i1.innerText
+
+                    pinkColor = ((Array.from(pinkText)).shift()).toString()
+                    greenColor = ((Array.from(greenText)).shift()).toString()
+
+                    getId = i2.id
+                    arr = Array.from(getId)
+                    arr.shift()
+                    aside = eval(arr.pop())
+                    aup = eval(arr.shift())
+                    a = aside + aup
+
+                    if (a % 2 == 0 && pinkColor == greenColor) {
+                        i2.style.backgroundColor = 'rgb(240, 201, 150)'
                     }
-                    if (greenA % 2 !== 0 && pinkColor == greenColor) {
-                        greenBox.style.backgroundColor = 'rgb(100, 75, 43)';
+                    if (a % 2 !== 0 && pinkColor == greenColor) {
+                        i2.style.backgroundColor = 'rgb(100, 75, 43)'
                     }
+
+                    // if (pinkColor == greenColor) {
+                    //     i2.style.backgroundColor = 'rgb(253, 60, 60)'
+                    // }
                 }
-            });
+            })
         }
-    });
+    })
 }
 
-// Initialize turn and castle chances
-let tog = 1;
-let whiteCastleChance = true;
-let blackCastleChance = true;
 
-// Add click event listeners to all chessboard boxes
-document.querySelectorAll('.box').forEach(item => {
-    item.addEventListener('click', function () {
-        // Player move logic when a pink box is clicked
-        if (item.style.backgroundColor == 'pink') {
-            // Your existing player move logic
-            // ...
 
-            // Check if the game is not over, then make the CPU move
-            if (!isGameOver()) {
-                makeCPUMove();
-            }
-        }
-    });
-});
 
-// Function to simulate CPU move
-function makeCPUMove() {
-    // Basic CPU move logic
-    // ...
 
-    // Update the turn
-    tog = tog + 1;
 
-    // Display the updated turn
-    if (tog % 2 !== 0) {
-        document.getElementById('tog').innerText = "White's Turn";
-    } else {
-        document.getElementById('tog').innerText = "Black's Turn";
-    }
 
-    // Additional logic after CPU move
-    // ...
 
-    // Update the UI
-    coloring();
-    insertImage();
-
-    // Check for game over
-    if (isGameOver()) {
-        // Handle game over logic
-        // ...
-    }
-
-    // Prevent multiple selections
-    z = 0;
-    document.querySelectorAll('.box').forEach(ee => {
-        ee.addEventListener('click', function () {
-            z = z + 1;
-            if (z % 2 == 0 && ee.style.backgroundColor !== 'green' && ee.style.backgroundColor !== 'aqua') {
-                coloring();
-            }
-        });
-    });
-}
-
-// Function to check if the game is over
-function isGameOver() {
-    // Your existing game-over check logic
-    // ...
-
-    // Return true or false based on the game state
-    // ...
-}
 
 
 tog = 1

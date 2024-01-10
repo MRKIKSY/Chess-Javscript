@@ -8,12 +8,12 @@ body {
     place-items: center;
     overflow-x: hidden;
 }
+
 header {
     background: #0c615d;
-    color: #fff; 
+    color: #fff;
     text-align: center;
-    
-  }
+}
 
 h1 {
     margin: 2px;
@@ -22,7 +22,6 @@ h1 {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-style: normal;
     font-size: medium;
-    
 }
 
 ul {
@@ -51,7 +50,6 @@ li {
     margin: 10px 0px;
 }
 
-
 .allimg {
     width: 45px;
     position: relative;
@@ -69,15 +67,11 @@ li {
 .author {
     float: right;
     margin-right: 50px;
-
 }
 
-
-@media (max-width:650px){
-
+@media (max-width: 650px) {
     #tog {
         margin-bottom: 70px;
-
     }
 
     .box {
